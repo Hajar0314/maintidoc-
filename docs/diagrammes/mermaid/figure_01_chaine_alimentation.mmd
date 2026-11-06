@@ -1,0 +1,19 @@
+flowchart LR
+    R["<b>Réseau</b><br/>400 V"]:::grey
+    ATS["<b>ATS-01</b><br/>Inverseur<br/>de sources"]
+    UPS["<b>UPS-01</b><br/>Onduleur<br/>40 kVA"]
+    CC["<b>Charges</b><br/>critiques"]:::green
+    GE["<b>GE-01</b><br/>Groupe<br/>électrogène"]
+    NP["Charges non protégées<br/>(mode bypass)"]:::red
+
+    R --> ATS
+    ATS -- "400 V" --> UPS
+    UPS --> CC
+    ATS -- "ordre de démarrage" --> GE
+    GE -- "400 V groupe" --> ATS
+    UPS -. "bypass A401" .-> NP
+
+    classDef default fill:#E3EDF7,stroke:#2F4B6E,color:#222
+    classDef grey fill:#F2F2F2,stroke:#2F4B6E,color:#222
+    classDef green fill:#DDEFD9,stroke:#2F4B6E,color:#222
+    classDef red fill:#F4CCCC,stroke:#2F4B6E,color:#222

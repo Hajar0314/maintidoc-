@@ -1,0 +1,26 @@
+flowchart TB
+    S1["1. Identité et groupes<br/>de l'utilisateur (API)"]
+    S2["2. Analyse de la question<br/>et de la photo (VLM)"]
+    S3["3. Recherche texte et image,<br/>documents autorisés seulement"]
+    S4["4. Consultation de l'historique<br/>via MCP (si nécessaire)"]
+    S5["5. Rédaction de la réponse<br/>avec ses sources"]
+    S6["6. Vérification des citations<br/>et du format (PC3)"]
+    S7["7. Réponse sourcée envoyée<br/>à l'utilisateur"]
+
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7
+
+    REF["Refus : utilisateur non<br/>authentifié ou sans droit"]:::red
+    CLA["Clarification : photo illisible,<br/>source insuffisante, équipement incertain"]:::orange
+    TIC["Brouillon de ticket :<br/>validation humaine (PC2)<br/>puis création via MCP"]:::green
+    CON["Contradiction signalée :<br/>version en vigueur indiquée"]:::orange
+
+    S1 -- "PC1" --> REF
+    S2 -.-> CLA
+    S3 -- "PC1" --> CLA
+    S4 -.-> TIC
+    S5 -.-> CON
+
+    classDef default fill:#E3EDF7,stroke:#2F4B6E,color:#222
+    classDef red fill:#F4CCCC,stroke:#2F4B6E,color:#222
+    classDef orange fill:#F6C28B,stroke:#B45F06,color:#222
+    classDef green fill:#DDEFD9,stroke:#2F4B6E,color:#222

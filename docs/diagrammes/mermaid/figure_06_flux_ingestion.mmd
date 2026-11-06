@@ -1,0 +1,23 @@
+flowchart LR
+    SRC["<b>PDF texte<br/>PDF scanné<br/>Image</b>"]:::grey
+    DET["<b>Détection<br/>du format</b>"]
+    EXT["Extraction<br/>texte (PyMuPDF)"]
+    OCR["OCR local<br/>(pages scannées)"]
+    DEC["<b>Découpage</b><br/>passages, tableaux,<br/>figures"]
+    ET["Embeddings texte<br/>(BGE-M3)"]
+    EI["Embeddings image<br/>(encodeur type CLIP)"]
+    IDX[("<b>Index Qdrant</b><br/>+ PostgreSQL (métadonnées)<br/>+ MinIO (fichiers)")]:::green
+    INV["inventaire.csv"]:::grey
+
+    SRC --> DET
+    DET -- "texte natif" --> EXT
+    DET -- "page scannée" --> OCR
+    EXT --> DEC
+    OCR -- "texte + position" --> DEC
+    DEC --> ET --> IDX
+    DEC --> EI --> IDX
+    INV -. "métadonnées et groupes d'accès" .-> IDX
+
+    classDef default fill:#E3EDF7,stroke:#2F4B6E,color:#222
+    classDef grey fill:#F2F2F2,stroke:#2F4B6E,color:#222
+    classDef green fill:#DDEFD9,stroke:#2F4B6E,color:#222

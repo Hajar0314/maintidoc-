@@ -1,0 +1,26 @@
+flowchart TB
+    UI["<b>Interface web (Streamlit)</b><br/>question et photographie"]
+    API["<b>API (FastAPI)</b><br/>authentification, groupes, droits<br/><i>PC1 : droits d'accès</i>"]
+    ORCH["<b>Orchestration (LangChain, LangGraph)</b><br/>état, transitions, limites de boucle,<br/>pause pour validation humaine"]
+    RAG["<b>Recherche documentaire</b><br/>texte et images, fusion RRF,<br/>reclassement<br/><i>PC1 : filtrage par groupe</i>"]
+    VLM["<b>Modèle vision-langage</b><br/>description de la photo,<br/>rédaction de la réponse"]
+    MCPC["<b>Client MCP</b><br/>appels à l'outil<br/>de maintenance<br/><i>PC2 : validation humaine</i>"]
+    STO[("<b>Stockage et index</b><br/>Qdrant, PostgreSQL, MinIO")]:::grey
+    VER["<b>Vérification des citations</b><br/>et du format de sortie<br/><i>PC3 : citations</i>"]
+    MCPS["<b>Serveur MCP maintenance</b><br/>historique, tickets ouverts,<br/>création de ticket"]:::grey
+    ING["<b>Ingestion (hors ligne)</b><br/>PyMuPDF, OCR local,<br/>découpage, embeddings"]:::green
+    OUT["<b>Sorties possibles</b><br/>réponse sourcée, demande de clarification,<br/>refus, brouillon de ticket à valider"]:::green
+
+    UI --> API --> ORCH
+    ORCH --> RAG
+    ORCH --> VLM
+    ORCH --> MCPC
+    RAG --> STO
+    VLM --> VER
+    MCPC -- "JSON" --> MCPS
+    ING -- "index" --> STO
+    VER --> OUT
+
+    classDef default fill:#E3EDF7,stroke:#2F4B6E,color:#222
+    classDef grey fill:#F2F2F2,stroke:#2F4B6E,color:#222
+    classDef green fill:#DDEFD9,stroke:#2F4B6E,color:#222

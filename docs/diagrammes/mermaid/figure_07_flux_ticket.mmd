@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    actor U as Utilisateur
+    participant A as Interface / API
+    participant O as Orchestrateur
+    participant M as Serveur MCP
+
+    U->>A: demande de ticket
+    A->>O: requête + groupes
+    O->>M: lecture de l'historique
+    M->>O: interventions
+    O->>A: brouillon (contenu exact)
+    A->>U: affichage du brouillon
+    U->>A: approbation explicite
+    Note over U,A: PC2 : validation humaine
+    A->>O: approbation liée au contenu
+    O->>M: création + clé d'idempotence
+    M->>O: numéro du ticket
+    O->>U: confirmation
+    Note over U,M: Toute modification du brouillon après son affichage (étape 6)<br/>impose une nouvelle approbation.

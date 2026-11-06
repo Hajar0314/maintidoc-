@@ -1,0 +1,16 @@
+flowchart LR
+    T["Groupe<br/><b>techniciens_energie</b><br/><br/>tech_01, tech_02<br/>(utilisateurs fictifs)"]
+    R["Groupe<br/><b>responsables</b><br/><br/>resp_01<br/>(utilisateur fictif)"]
+    C["<b>148 fichiers communs</b><br/>53 PDF moins 1 + 96 images<br/>(manuels, procédures, codes, photos,<br/>historiques, synthétiques et publics)"]:::green
+    B["<b>bulletin_technique_ge01</b> (1 fichier)<br/>retour d'expérience réservé aux responsables<br/>sert au test de fuite entre groupes"]:::red
+
+    T -- "accès autorisé" --> C
+    R -- "accès autorisé" --> C
+    R -- "accès autorisé" --> B
+    T -. "refusé" .-> B
+
+    linkStyle 3 stroke:#CC0000,stroke-width:2px,color:#CC0000
+
+    classDef default fill:#E3EDF7,stroke:#2F4B6E,color:#222
+    classDef green fill:#DDEFD9,stroke:#2F4B6E,color:#222
+    classDef red fill:#F4CCCC,stroke:#2F4B6E,color:#222
