@@ -296,5 +296,5 @@ Aucun secret (clé d'API, mot de passe) n'est présent dans le ZIP ni dans le d�
 - [x] `prompts_corpus.md` présent (prompts, outil, date, provenance, licence, analyse critique)
 - [x] Au moins 2 documents contradictoires et 1 document piégé, signalés dans l'inventaire
 - [x] Aucun secret dans le ZIP
-- [ ] Rapport PDF ajouté et ouvert pour contrôle
-- [ ] Lien GitHub testé depuis un compte extérieur à l'équipe
+- [x] Rapport PDF ajouté et ouvert pour contrôle
+- [x] Lien GitHub testé depuis un compte extérieur à l'équipe
